@@ -8,6 +8,7 @@ import { useGesture } from 'react-with-gesture';
 import { useSprings, animated, to } from 'react-spring';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import '../styles/DraggableList.css';
+import TodoItem from './TodoItem';
 
 // WHEN dragging, this function will be fed with all arguments.
 // OTHERWISE, only the list order is relevant.
@@ -50,15 +51,6 @@ function DraggableList({ items }) {
             items.length - 1
         );
         const newOrder = swap(order.current, curIndex, curRow);
-        console.log(
-            `${Math.round((curIndex * 100 + y) / 100)}, ${0}, ${
-                items.length - 1
-            }, ${clamp(
-                Math.round((curIndex * 100 + y) / 100),
-                0,
-                items.length - 1
-            )}`
-        );
         /*
             Curry all variables needed for the truthy clause of the ternary expression from fn,
             so that new objects are fed to the springs without triggering a re-render.
@@ -86,14 +78,7 @@ function DraggableList({ items }) {
                     }}
                     // children={items[i]}
                 >
-                    <Container>
-                        <Row fluid="md">
-                            <Col>{items[i]}</Col>
-                            <Col>
-                                <Button>Done</Button>
-                            </Col>
-                        </Row>
-                    </Container>
+                    <TodoItem item={items[i]} />
                 </animated.div>
             ))}
         </div>
